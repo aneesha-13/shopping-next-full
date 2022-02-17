@@ -18,6 +18,7 @@ const useStyles = makeStyles({
         margin: '0.5rem',
         flex: '1 1 auto',
         position: 'relative',
+
         // '&:hover $media': {
         //     transform: 'scale(1.2)',
         // },
@@ -42,24 +43,24 @@ const useStyles = makeStyles({
         border: '1px solid black',
         cursor: 'pointer',
     },
-    container:{
+    container: {
         padding: '0 2rem',
     },
-    main:{
-        minHeight: '80vh',
-        padding:'4rem 0',
+    main: {
+        // minHeight: '80vh',
+        padding: '4rem 0',
         flex: '1',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    brand:{
-        fontWeiggt:'bold',
-        fontSize:'1.5rem',
+    brand: {
+        fontWeiggt: 'bold',
+        fontSize: '1.5rem',
     },
-    grow:{
-        flexGrow:1,
+    grow: {
+        flexGrow: 1,
     },
     // grid:{
     //     display: 'flex',
@@ -69,13 +70,18 @@ const useStyles = makeStyles({
     //     maxWidth: '800px',
     //   },
     small: {
-        display:'grid',
+        display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr',
-      },
-    large:{
+    },
+    large: {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
-      }
+    },
+    section: {
+        marginTop: 10,
+        marginBottom: 10,
+    },
+
 
 
 });

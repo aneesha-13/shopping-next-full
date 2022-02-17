@@ -21,9 +21,11 @@ export default function Home() {
     //     <CategoryCard image="https://imgur.com/HsUfuRU.png" name="Accessories" xs="6"/>
     // </Grid>
     // </div>
+
+    <Layout>
     <div className={classes.main}>
-      <Grid container spacing={2} className={classes.container}>
-        <Grid item xs={3}>
+      <Grid container spacing={1} className={classes.container}>
+        <Grid item md={3}>
           <Card className={classes.card}>
             <CardActionArea>
               <CardMedia className={classes.image}
@@ -47,13 +49,16 @@ export default function Home() {
                 image="https://imgur.com/3Y1DLYC.png"
                 title="PS5"></CardMedia>
               <CardContent className={classes.info}>
-                <h3>PS5</h3>
-                <p>SHOP NOW</p>
+              <Link href={`/category/ps5`}>
+                <div><h3>PS5</h3>
+                <p>SHOP NOW</p></div>
+                
+                </Link>
               </CardContent>
             </CardActionArea>
           </Card>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item sm={3}>
           <Card className={classes.card}>
             <CardActionArea>
               {/* <CardMedia className={classes.image} */}
@@ -63,13 +68,18 @@ export default function Home() {
                 // image="https://imgur.com/Dm212HS.png"
                 title="Switch"><Image className={classes.image} src="https://imgur.com/Dm212HS.png" height={700} width={1300} /></CardMedia>
               <CardContent className={classes.info}>
+              <Link href={`/category/switch`}>
+                <div>
                 <h3>SWITCH</h3>
                 <p>SHOP NOW</p>
+                </div>
+                
+                </Link>
               </CardContent>
             </CardActionArea>
           </Card>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} md={6}>
           <Card className={classes.card}>
             <CardActionArea>
               <CardMedia className={classes.image}
@@ -77,13 +87,17 @@ export default function Home() {
                 image="https://imgur.com/qb6IW1f.png"
                 title="PC"></CardMedia>
               <CardContent className={classes.info}>
+              <Link href={`/category/pc`}>
+                <div>
                 <h3>PC</h3>
                 <p>SHOP NOW</p>
+                </div>
+                </Link>
               </CardContent>
             </CardActionArea>
           </Card>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} md={6}>
           <Card className={classes.card}>
             <CardActionArea>
               <CardMedia className={classes.image}
@@ -91,8 +105,12 @@ export default function Home() {
                 image="https://imgur.com/HsUfuRU.png"
                 title="Accessories"></CardMedia>
               <CardContent className={classes.info}>
+              <Link href={`/category/accessories`}>
+                <div>
                 <h3>ACCESSORIES</h3>
                 <p>SHOP NOW</p>
+                </div>
+                </Link>
               </CardContent>
             </CardActionArea>
           </Card>
@@ -100,6 +118,6 @@ export default function Home() {
       </Grid>
     </div>
 
-    // </Layout>
+    </Layout>
   )
 }

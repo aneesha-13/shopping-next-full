@@ -1,7 +1,5 @@
-import React from 'react';
-import Head from 'next/head';
-import NextLink from 'next/link';
-import { AppBar, Container, Link, Toolbar, Typography } from '@material-ui/core';
+import React, { useContext } from 'react';
+import { Container, Typography,Badge } from '@material-ui/core';
 import useStyles from '../utils/styles';
 import NavBar from './NavBar';
 
@@ -10,9 +8,9 @@ export default function Layout({ children }) {
     return (
         <div>
             <NavBar/>
-            {/* <Container className={classes.main}> */}
+            <Container className={classes.main}>
                 {children}
-            {/* </Container> */}
+            </Container>
             <footer className={classes.footer}>
                 <Typography>All rights reserved</Typography>
             </footer>

@@ -1,9 +1,14 @@
+import React, { useContext } from 'react';
 import NextLink from 'next/link';
-import { AppBar, Container, Link, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Container, Link, Toolbar, Typography, Badge } from '@material-ui/core';
 import useStyles from '../utils/styles';
+import { Store } from '../utils/store';
+import Cookies from 'js-cookie';
 
 export default function NavBar() {
     const classes = useStyles();
+    const { state, dispatch } = useContext(Store);
+    const { cart } = state;
     return (
         <div>
             <AppBar position="static" className={classes.navbar}>
@@ -22,10 +27,15 @@ export default function NavBar() {
                                 Explore
                             </Link>
                         </NextLink>
-
+                        <NextLink href="/login" passHref>
+                            <Link>
+                                <Typography component="span">Login</Typography>
+                            </Link>
+                        </NextLink>
                         <NextLink href="/cart" passHref>
                             <Link>
-                                Cart
+                                {cart.cartItems.length > 0 ? <Badge badgeContent={cart.cartItems.length}>Cart</Badge> : "Cart"}
+
                             </Link>
                         </NextLink>
                     </div>

@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import { useEffect } from 'react';
 import Layout from '../component/Layout';
+import { StoreProvider } from '../utils/store';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -10,7 +11,9 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
   return (
-    <Layout><Component {...pageProps} />);</Layout>
+    // <Layout><Component {...pageProps} /></Layout>
+    <StoreProvider><Component {...pageProps} /></StoreProvider>
+    
     )
     
 }
