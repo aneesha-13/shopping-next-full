@@ -15,11 +15,15 @@ import axios from 'axios';
 import { useContext } from 'react';
 import db from '../../utils/db'
 import Product from '../../models/Product';
+import { Store } from '../../utils/store';
 
-const CategoryPage = ({ props }) => {
-  const {product} = props;
-  const {state, dispatch} =useContext(Store);
+
+const CategoryPage = ({ products }) => {
+  
   const router = useRouter();
+  const {dispatch } = useContext(Store);
+//   const { userInfo } = state;
+  // const { product } = props;
   return (
     <Layout>
     <div>
@@ -61,11 +65,11 @@ export async function getServerSideProps(context) {
   const { category} = params;
 
   await db.connect();
-  const product = await Product.find({category});
+  const products = await Product.find({category});
   await db.disconnect();
   return {
     props: {
-      product: JSON.parse(JSON.stringify(product)),
+      products: JSON.parse(JSON.stringify(products)),
     },
   };
 }
