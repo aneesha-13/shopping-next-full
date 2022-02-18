@@ -42,6 +42,12 @@ function CartScreen() {
   };
   return (
     <Layout>
+      <NextLink href="/explore" passHref>
+          <Link>
+            <Typography>back to products</Typography>
+          </Link>
+        </NextLink>
+      <br/>
       <Typography component="h5" variant="h5">
         Shopping Cart
       </Typography>

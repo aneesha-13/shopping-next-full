@@ -17,15 +17,19 @@ import { useContext } from 'react';
 import db from '../utils/db.js';
 import Product from '../models/Product';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 const explore = (props) => {
+  const router =useRouter();
   const {products} = props;
-  const {dispatch} =useContext(Store);
-  const addToCartHandler = async (product) =>{
-    console.log(product);
-    const {data} =await axios.get(`/api/products/${product._id}`);
-    dispatch({ type: 'CART_ADD_ITEM',payload : {...product,quantity :1}});
-  }
+  const {state, dispatch} =useContext(Store);
+  const addToCartHandler = async (product) => {
+    const existItem = state.cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product , quantity} });
+    router.push('/cart');
+  };
   return (
     <Layout>
       <div>
@@ -46,7 +50,7 @@ const explore = (props) => {
                   </CardContent>
                   <CardActions>
                   <Typography>${product.price}</Typography>
-                  <Button size="small" color="primary" onClick={addToCartHandler}>
+                  <Button size="small" color="primary" onClick={() => addToCartHandler(product)}>
                     Add to cart
                   </Button>
                 </CardActions>
