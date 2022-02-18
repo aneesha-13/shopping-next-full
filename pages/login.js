@@ -11,9 +11,22 @@ import React from 'react';
 import Layout from '../component/Layout';
 import useStyles from '../utils/styles';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState , useContext } from 'react';
+import { Store } from '../utils/store';
+import { Router, useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+
 
 export default function Login() {
+    const router = useRouter();
+    const { redirect } = router.query; // login?redirect=/shipping
+    const { state, dispatch } = useContext(Store);
+    const { userInfo } = state;
+    //if user exists (means already logged in then redirect to '/' )
+    if(userInfo){
+        router.push('/explore')
+    }
+
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -24,7 +37,9 @@ export default function Login() {
             email,
             password,
           });
-          alert('successful login');
+          dispatch({type:'USER_LOGIN',payload: data});
+          Cookies.set('userInfo',JSON.stringify(data));
+          router.push(redirect || '/explore');
         } catch (err) {
           alert(err.response.data ? err.response.data.message : err.message);
         }

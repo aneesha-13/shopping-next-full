@@ -86,6 +86,10 @@ const useStyles = makeStyles({
         backgrounColor: '#f2f2f2',
         padding: '20px',
       },
+    navbarButton: {
+        color: '#ffffff',
+        textTransform: 'initial',
+    },
 
 
 
