@@ -47,7 +47,7 @@ const addToCartHandler = async (product) => {
               title={product.name}
               ></CardMedia>
                <CardContent>
-                  <Typography>{product.name}</Typography>
+                  <Typography>{product.product}</Typography>
                 </CardContent>
                 <CardActions>
                 <Typography>${product.price}</Typography>
