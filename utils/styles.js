@@ -90,7 +90,9 @@ const useStyles = makeStyles({
         color: '#ffffff',
         textTransform: 'initial',
     },
-
+    center:{
+        textAlign:'center',
+    },
 
 
 });
