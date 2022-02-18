@@ -11,6 +11,7 @@ import {
 import { useRouter } from 'next/router';
 import Layout from '../../component/Layout';
 // import { getProductsByCategory } from '../api/products/[category]';
+import NextLink from 'next/link';
 import axios from 'axios';
 import { useContext } from 'react';
 import db from '../../utils/db'
@@ -21,9 +22,15 @@ import { Store } from '../../utils/store';
 const CategoryPage = ({ products }) => {
   
   const router = useRouter();
-  const {dispatch } = useContext(Store);
-//   const { userInfo } = state;
-  // const { product } = props;
+  const {state, dispatch } = useContext(Store);
+
+const addToCartHandler = async (product) => {
+    const existItem = state.cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product , quantity} });
+    router.push('/cart');
+  };
   return (
     <Layout>
     <div>
@@ -32,6 +39,7 @@ const CategoryPage = ({ products }) => {
       {products.map((product) =>(
         <Grid item md={4} key={product.id}>
           <Card>
+          <NextLink href={`/product/${product.id}`} passHref>
             <CardActionArea>
               <CardMedia 
               component="img"
@@ -43,11 +51,12 @@ const CategoryPage = ({ products }) => {
                 </CardContent>
                 <CardActions>
                 <Typography>${product.price}</Typography>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={() => addToCartHandler(product)}>
                   Add to cart
                 </Button>
               </CardActions>
             </CardActionArea>
+            </NextLink>
           </Card>
           </Grid>
       ))}
