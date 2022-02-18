@@ -20,8 +20,8 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## .env
 - add .env file to the root application folder
-- MONGODB_URI=mongodb://localhost/database_name
-- JWT_SECRET = secret key
+- MONGODB_URI=mongodb://localhost/<database_name>
+- JWT_SECRET = <secret_key>
 
 ## Learn More
 
