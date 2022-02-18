@@ -141,6 +141,7 @@ function CartScreen() {
                     variant="contained"
                     color="primary"
                     fullWidth
+                    onClick={checkoutHandler}
                   >
                     Check Out
                   </Button>

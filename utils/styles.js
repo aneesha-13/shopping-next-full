@@ -81,6 +81,11 @@ const useStyles = makeStyles({
         marginTop: 10,
         marginBottom: 10,
     },
+    formContainer :{
+        borderRadius: '5px',
+        backgrounColor: '#f2f2f2',
+        padding: '20px',
+      },
 
 
 

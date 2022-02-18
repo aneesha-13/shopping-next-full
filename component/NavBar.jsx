@@ -27,7 +27,7 @@ export default function NavBar() {
                                 Explore
                             </Link>
                         </NextLink>
-                        <NextLink href="/login" passHref>
+                        <NextLink href='/login' passHref>
                             <Link>
                                 <Typography component="span">Login</Typography>
                             </Link>
