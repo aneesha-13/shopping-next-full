@@ -1,65 +1,64 @@
 import {
-    List,
-    ListItem,
-    Typography,
-    TextField,
-    Button,
-    Link,
-  } from '@material-ui/core';
-  import axios from 'axios';
-  import { useRouter } from 'next/router';
-  import NextLink from 'next/link';
-  import React, { useContext, useEffect, useState } from 'react';
-  import Layout from '../component/Layout';
-  import { Store } from '../utils/store';
-  import useStyles from '../utils/styles';
-  import Cookies from 'js-cookie';
-  import { Controller, useForm } from 'react-hook-form';
-  
-  export default function Register() {
-    const router = useRouter();
-    const { redirect } = router.query;
-    const { state, dispatch } = useContext(Store);
-    const { userInfo } = state;
-    useEffect(() => {
-      if (userInfo) {
-        router.push('/');
-      }
-    }, []);
-  
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const classes = useStyles();
-    const { handleSubmit, control, formState: { errors }, } = useForm();
-    const submitHandler = async ({name, email, password, confirmPassword}) => {
-      e.preventDefault();
-      if (password !== confirmPassword) {
-        alert("passwords don't match");
-        return;
-      }
-      try {
-        const { data } = await axios.post('/api/users/register', {
-          name,
-          email,
-          password,
-        });
-        dispatch({ type: 'USER_LOGIN', payload: data });
-        Cookies.set('userInfo', data);
-        router.push(redirect || '/');
-      } catch (err) {
-        alert(err.response.data ? err.response.data.message : err.message);
-      }
-    };
-    return (
-      <Layout title="Register">
-        <form onSubmit={handleSubmit(submitHandler)} className={classes.form}>
-          <Typography component="h5" variant="h5">
-            Register
-          </Typography>
-          <List>
-            <ListItem>
+  List,
+  ListItem,
+  Typography,
+  TextField,
+  Button,
+  Link,
+} from '@material-ui/core';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import NextLink from 'next/link';
+import React, { useContext, useEffect,} from 'react';
+import Layout from '../component/Layout';
+import { Store } from '../utils/store';
+import useStyles from '../utils/styles';
+import Cookies from 'js-cookie';
+import { Controller, useForm } from 'react-hook-form';
+import { useSnackbar } from 'notistack';
+
+
+export default function Register() {
+  const router = useRouter();
+  const { redirect } = router.query;
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
+  useEffect(() => {
+    if (userInfo) {
+      router.push('/');
+    }
+  }, []);
+  const classes = useStyles();
+  const { handleSubmit, control, formState: { errors }, } = useForm();
+  const { enqueueSnackbar, closeSnackbar} = useSnackbar();
+
+  const submitHandler = async ({ name, email, password, confirmPassword }) => {
+    closeSnackbar();
+    if (password !== confirmPassword) {
+      enqueueSnackbar("Passwords don't match", {variant: 'error'});
+      return;
+    }
+    try {
+      const { data } = await axios.post('/api/users/register', {
+        name,
+        email,
+        password,
+      });
+      dispatch({ type: 'USER_LOGIN', payload: data });
+      Cookies.set('userInfo', data);
+      router.push(redirect || '/');
+    } catch (err) {
+      enqueueSnackbar(err.response.data ? err.response.data.message : err.message, {varient: 'error'});
+    }
+  };
+  return (
+    <Layout title="Register">
+      <form onSubmit={handleSubmit(submitHandler)} className={classes.form}>
+        <Typography component="h5" variant="h5">
+          Register
+        </Typography>
+        <List>
+          <ListItem>
             <Controller
               name="name"
               control={control}
@@ -87,8 +86,8 @@ import {
                 ></TextField>
               )}
             ></Controller>
-            </ListItem>
-            <ListItem>
+          </ListItem>
+          <ListItem>
             <Controller
               name="email"
               control={control}
@@ -116,8 +115,8 @@ import {
                 ></TextField>
               )}
             ></Controller>
-            </ListItem>
-            <ListItem>
+          </ListItem>
+          <ListItem>
             <Controller
               name="password"
               control={control}
@@ -145,8 +144,8 @@ import {
                 ></TextField>
               )}
             ></Controller>
-            </ListItem>
-            <ListItem>
+          </ListItem>
+          <ListItem>
             <Controller
               name="confirmPassword"
               control={control}
@@ -174,20 +173,20 @@ import {
                 ></TextField>
               )}
             ></Controller>
-            </ListItem>
-            <ListItem>
-              <Button variant="contained" type="submit" fullWidth color="secondary">
-                Register
-              </Button>
-            </ListItem>
-            <ListItem>
-              Already have an account? &nbsp;
-              <NextLink href={`/login?redirect=${redirect || '/'}`} passHref>
-                <Link>Login</Link>
-              </NextLink>
-            </ListItem>
-          </List>
-        </form>
-      </Layout>
-    );
-  }
+          </ListItem>
+          <ListItem>
+            <Button variant="contained" type="submit" fullWidth color="secondary">
+              Register
+            </Button>
+          </ListItem>
+          <ListItem>
+            Already have an account? &nbsp;
+            <NextLink href={`/login?redirect=${redirect || '/'}`} passHref>
+              <Link>Login</Link>
+            </NextLink>
+          </ListItem>
+        </List>
+      </form>
+    </Layout>
+  );
+}
