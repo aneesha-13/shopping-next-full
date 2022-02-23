@@ -93,7 +93,9 @@ const useStyles = makeStyles({
     center:{
         textAlign:'center',
     },
-
+    transparentBackgroud: {
+        backgroundColor: 'transparent',
+      },
 
 });
 
