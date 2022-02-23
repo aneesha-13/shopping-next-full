@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import React, { useContext, useEffect,} from 'react';
+import React, { useContext, useEffect, } from 'react';
 import Layout from '../component/Layout';
 import { Store } from '../utils/store';
 import useStyles from '../utils/styles';
@@ -17,29 +17,34 @@ import { Controller, useForm } from 'react-hook-form';
 import CheckoutWizard from '../component/checkoutWizard';
 
 export default function Shipping() {
+  const { handleSubmit, control, formState: { errors }, setValue } = useForm();
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
+  const { userInfo, cart:{shippingAddress} } = state;
   useEffect(() => {
     if (!userInfo) {
       router.push('/login?redirect=/shipping');
     }
+    setValue('fullName', shippingAddress.fullName);
+    setValue('address', shippingAddress.address);
+    setValue('city', shippingAddress.city);
+    setValue('postalCode', shippingAddress.postalCode);
+    setValue('country', shippingAddress.country);
   }, []);
   const classes = useStyles();
-  const { handleSubmit, control, formState: { errors }, } = useForm();
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
     dispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
       payload: { fullName, address, city, postalCode, country },
     });
-    Cookies.set('shippingAddress', {
+    Cookies.set('shippingAddress', JSON.stringify({
       fullName,
       address,
       city,
       postalCode,
       country,
-    });
+    }));
     router.push('/payment');
   };
   return (
