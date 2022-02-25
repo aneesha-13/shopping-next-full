@@ -26,6 +26,8 @@ export default function NavBar() {
         dispatch({ type: 'USER_LOGOUT' });
         Cookies.remove('userInfo');
         Cookies.remove('cartItems');
+        Cookies.remove('paymentMethod');
+        Cookies.remove('shippingAddress');
         router.push('/');
     };
     return (
